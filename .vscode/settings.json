@@ -1,0 +1,8 @@
+{
+	"editor.tabSize": 2,
+	"editor.insertSpaces": true,
+  "typescriptHero.imports.insertSemicolons": false,
+  "tsimporter.emitSemicolon": false,
+  "typescriptHero.imports.stringQuoteStyle": "'",
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
