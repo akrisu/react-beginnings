@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/akrisu/react-beginnings.svg?branch=master)](https://travis-ci.org/akrisu/react-beginnings)
+
 # React beginnings
 First project in react
 
