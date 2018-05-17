@@ -7,24 +7,31 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 
+import { minLength, required, Validator } from '../../common/form/validators/validators'
 import { UserAction } from '../../lib/user/actions'
 
 interface IUserFormStateProps {
   readonly isSaving: boolean
 }
 
-const UserFormComponent: React.SFC<InjectedFormProps & IUserFormStateProps> = ({ handleSubmit, isSaving }) => (
-  <>
-    <form onSubmit={handleSubmit}>
-      <Field name='firstName' component='input' />
-      <Field name='lastName' component='input' />
-      <Button type='submit' disabled={isSaving} text='Send' />
-    </form>
-    {isSaving}
-  </>
-)
+class UserFormComponent extends React.Component<InjectedFormProps & IUserFormStateProps> {
+  private readonly validators: Validator[] = [required, minLength(3)] // tslint:disable-line no-magic-numbers
 
-const Form = reduxForm({ form: 'user' })(UserFormComponent)
+  public render(): React.ReactNode {
+    return (
+      <>
+        <form onSubmit={this.props.handleSubmit}>
+          <Field name='firstName' component='input' validate={this.validators} />
+          <Field name='lastName' component='input' validate={this.validators} />
+          <Button type='submit' disabled={this.props.isSaving} text='Send' />
+        </form>
+        {this.props.isSaving}
+      </>
+    )
+  }
+}
+
+const Form = reduxForm({ form: 'user '})(UserFormComponent)
 
 const mapStateToProps = (state: IState): IUserFormStateProps => ({
   isSaving: isSavingUserForm(state),
