@@ -1,9 +1,9 @@
 import { createAction } from 'common/redux'
 import { Set } from 'immutable'
 
-import { checkActionForPending, IPendingActionsConfiguration } from './manager'
+import { checkActionForPending, IPendingActionsConfiguration } from './pending-actions-manager'
 
-describe('manager', () => {
+describe('pending actions manager', () => {
   const defaultConfiguration: IPendingActionsConfiguration[] = [
       { startOn: 'FOO_A', stopOn: ['FOO_A_OK', 'FOO_A_FAIL']},
       { startOn: 'FOO_B', stopOn: ['FOO_B_OK', 'FOO_B_FAIL']},
@@ -15,7 +15,7 @@ describe('manager', () => {
     expect(result).toEqual(Set<string>(['FOO_A']))
   })
 
-  it('should remove a pending action when stopOn matches with on of provided action types', () => {
+  it('should remove a pending action when stopOn matches with one of provided action types', () => {
     const result = checkActionForPending(defaultConfiguration)(Set<string>(['FOO_A']), { type: 'FOO_A_FAIL' })
 
     expect(result).toEqual(Set<string>())

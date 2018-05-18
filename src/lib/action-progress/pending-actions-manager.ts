@@ -12,9 +12,10 @@ export const checkActionForPending = (configuration: IPendingActionsConfiguratio
       return state.add(action.type)
     }
 
-    const actionToRemove = configuration
-      .find(configurationElement => configurationElement.stopOn
-        .some(stopOnElement => stopOnElement === action.type))
+    const actionToRemove = configuration.find(({stopOn}) =>
+      stopOn.some(actionType =>
+        actionType === action.type,
+      ))
 
     if (actionToRemove) {
       return state.delete(actionToRemove.startOn)
